@@ -18,7 +18,7 @@ public class Main {
             threads[j] = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    for (long i = finalJ * 10000000 + 1; i <= (finalJ + 1) * 10000000; i++) {
+                    for (long i = finalJ * 10000000 + 1; i <= (finalJ + 1) * 10000000; i++) {//这里分成100段，用了小于等于号，所以会比样例多检测一个1000000000，别怪我555
                         if (contain(i, x)) {
                             ans[finalJ] += i;
                         }
