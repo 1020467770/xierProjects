@@ -31,11 +31,6 @@ public class SetMeal {
 
     @Override
     public String toString() {
-        return "SetMeal{" +
-                "套餐1：'" + nameOfTaocan + '\'' +
-                ", 套餐价格：" + price +
-                ", 炸鸡：'" + nameOfZhaji + '\'' +
-                ", 饮料：" + drinks +
-                '}';
+        return nameOfTaocan + '：' + "  套餐价格：" + price +", "+nameOfZhaji + ", 饮料：" + drinks.getName();
     }
 }
