@@ -1,16 +1,17 @@
 package cn.sqh.demos;
 
 import java.time.LocalDate;
+import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) {
         West2FriedChickenRestauran wfcr = new West2FriedChickenRestauran();
-        Beer brkind1=new Beer ("小啤酒", 10, LocalDate.of(2020, 11, 1), 3);
-        Beer brkind2=new Beer("大啤酒", 15, LocalDate.of(2020, 11, 2), 4);
+        Beer brkind1=new Beer ("小啤酒", 10, LocalDate.of(2020, 10, new Random().nextInt(29)+1), 3);
+        Beer brkind2=new Beer("大啤酒", 15, LocalDate.of(2020, 10, new Random().nextInt(29)+1), 4);
         Juice jckind1=new Juice("苹果汁", 8, LocalDate.of(2020, 11, 3));
         Juice jckind2=new Juice("橙汁", 9, LocalDate.of(2020, 11, 5));
-        //生产日期可以用Random类配合判断过期函数来决定要不要进那一批货，但题目要求的保质期太短就手中控制生产日期吧
+        //果汁的保质期太短了，估计提交作业的时候也全坏了，就直接设定了
 
         System.out.println(brkind1);
 
@@ -54,6 +55,7 @@ public class Main {
             }
         }catch (IngredientSortOutException e){
             System.out.println(e);
+            System.out.println(wfcr);
         }
 
         System.out.println("==================");

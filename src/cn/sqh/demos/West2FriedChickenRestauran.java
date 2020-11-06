@@ -12,28 +12,28 @@ public class West2FriedChickenRestauran implements FriedChickenRestaurant {
     static private ArrayList<SetMeal> listTaocan;//套餐只有在创建对象时初始化，之后没有添加和删除操作，而且要经常查询套餐，所以使用ArrayList
 
     static {
-         listBeer=new LinkedList<>();
-         listJuice=new LinkedList<>();
-         listTaocan=new ArrayList<>();
+        listBeer = new LinkedList<>();
+        listJuice = new LinkedList<>();
+        listTaocan = new ArrayList<>();
     }
 
     @Override
     public String toString() {
         String yue = "目前的余额是" + this.yue + "元";
-        String beers= "目前一共有"+listBeer.size()+"种啤酒，分别是：";
+        String beers = "目前一共有" + listBeer.size() + "种啤酒，分别是：";
         for (Beer beer : listBeer) {
-            beers+=beer.name+' ';
+            beers += beer.name + ' ';
         }
-        String jucies= "目前一共有"+listJuice.size()+"种果汁，分别是：";
+        String jucies = "目前一共有" + listJuice.size() + "种果汁，分别是：";
         for (Juice juice : listJuice) {
-            jucies+=juice.name+' ';
+            jucies += juice.name + ' ';
         }
-        return yue+'\n'+beers+'\n'+jucies;
+        return yue + '\n' + beers + '\n' + jucies;
 
     }
 
     public West2FriedChickenRestauran() {
-        yue=10000;
+        yue = 10000;
         listTaocan.add(new SetMeal("套餐1", 20, "脆皮炸鸡", new Beer("小啤酒", 10, LocalDate.of(2020, 11, 1), 3)));
         listTaocan.add(new SetMeal("套餐2", 18, "香香炸鸡", new Beer("大啤酒", 15, LocalDate.of(2020, 11, 2), 4)));
         listTaocan.add(new SetMeal("套餐3", 21, "脆皮炸鸡", new Juice("苹果汁", 8, LocalDate.of(2020, 11, 1))));
@@ -42,29 +42,31 @@ public class West2FriedChickenRestauran implements FriedChickenRestaurant {
 
     private void use(Beer beer) {
         if (listBeer.isEmpty()) {
-            throw new IngredientSortOutException("您所需要的"+beer.name+"已经售空了");
+            throw new IngredientSortOutException("您所需要的" + beer.name + "已经售空了");
         } else {
+            listBeer.removeIf(Drinks::isOverdue);
             for (Beer listbr : listBeer) {
-                if(listbr.name==beer.name){
+                if (listbr.name == beer.name) {
                     listBeer.remove(listbr);
                     return;
                 }
             }
-            throw new IngredientSortOutException("您所需要的"+beer.name+"已经售空了");
+            throw new IngredientSortOutException("您所需要的" + beer.name + "已经售空了");
         }
     }
 
     private void use(Juice juice) {
         if (listJuice.isEmpty()) {
-            throw new IngredientSortOutException("您所需要的"+juice.name+"已经售空了");
+            throw new IngredientSortOutException("您所需要的" + juice.name + "已经售空了");
         } else {
+            listJuice.removeIf(Drinks::isOverdue);
             for (Juice listjc : listJuice) {
-                if(listjc.name==juice.name){
+                if (listjc.name == juice.name) {
                     listJuice.remove(listjc);
                     return;
                 }
             }
-            throw new IngredientSortOutException("您所需要的"+juice.name+"已经售空了");
+            throw new IngredientSortOutException("您所需要的" + juice.name + "已经售空了");
         }
     }
 
@@ -84,20 +86,20 @@ public class West2FriedChickenRestauran implements FriedChickenRestaurant {
         if (drinks instanceof Beer) {
             Beer beer = (Beer) drinks;
             double chae = beer.cost * num - yue;
-            if(chae>0){
-                throw new OverdraftBalanceException("店铺余额不足，还差"+chae+"");
-            }else {
+            if (chae > 0) {
+                throw new OverdraftBalanceException("店铺余额不足，还差" + chae + "");
+            } else {
                 for (int i = 0; i < num; i++) {
                     listBeer.add(beer);
                 }
-                yue -= chae+yue;
+                yue -= chae + yue;
             }
         } else if (drinks instanceof Juice) {
             Juice juice = (Juice) drinks;
             double chae = juice.cost * num - yue;
-            if(chae>0){
-                throw new OverdraftBalanceException("店铺余额不足，还差"+chae+"");
-            }else {
+            if (chae > 0) {
+                throw new OverdraftBalanceException("店铺余额不足，还差" + chae + "");
+            } else {
                 for (int i = 0; i < num; i++) {
                     listJuice.add(juice);
                 }
@@ -106,7 +108,7 @@ public class West2FriedChickenRestauran implements FriedChickenRestaurant {
         }
     }
 
-    public void showTaocan(){
+    public void showTaocan() {
         System.out.println("一共有如下几种套餐：");
         for (SetMeal listtc : listTaocan) {
             System.out.println(listtc);
