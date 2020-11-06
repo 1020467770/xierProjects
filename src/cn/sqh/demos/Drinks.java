@@ -55,12 +55,5 @@ public abstract class Drinks {
     }
 
     @Override
-    public String toString() {
-        return "Drinks{" +
-                "名字='" + name + '\'' +
-                ", 成本=" + cost +
-                ", 生产日期=" + dateProduced +
-                ", 保质期=" + baozhiqi +
-                '}';
-    }
+    public abstract String toString();
 }

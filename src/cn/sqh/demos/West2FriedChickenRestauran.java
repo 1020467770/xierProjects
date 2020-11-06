@@ -3,13 +3,13 @@ package cn.sqh.demos;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Objects;
+
 
 public class West2FriedChickenRestauran implements FriedChickenRestaurant {
     private double yue;
-    static private LinkedList<Beer> listBeer;
+    static private LinkedList<Beer> listBeer;//啤酒和果汁在售卖和进货时要经常添加和删除，同时又由于品种有限，线性查找速度已经够了，所以选择LinkedList
     static private LinkedList<Juice> listJuice;
-    static private ArrayList<SetMeal> listTaocan;
+    static private ArrayList<SetMeal> listTaocan;//套餐只有在创建对象时初始化，之后没有添加和删除操作，而且要经常查询套餐，所以使用ArrayList
 
     static {
          listBeer=new LinkedList<>();
